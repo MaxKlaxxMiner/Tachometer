@@ -53,9 +53,9 @@ namespace WindowsFormsApplication1
     }
 
     #region # // --- Konstanten / Einstellungen ---
-    float kreisX = 150.0f;
-    float kreisY = 150.0f;
-    float kreisR = 140.0f;
+    float kreisX = 300.0f;
+    float kreisY = 300.0f;
+    float kreisR = 280.0f;
 
     double radVon = Math.PI * 1.3;
     double radBis = Math.PI * 2.6;
@@ -111,7 +111,7 @@ namespace WindowsFormsApplication1
       double multi = (radBis - radVon) / motor.upmMax;
 
       int umdrehung = 0;
-      Font zahlenFont = new Font(this.Font.FontFamily, 16.0f);
+      Font zahlenFont = new Font(this.Font.FontFamily, 24.0f);
 
       while (umdrehung <= (int)motor.upmMax / 500 * 500 + 1000)
       {
