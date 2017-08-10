@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+// ReSharper disable UnusedMember.Global
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace WindowsFormsApplication1
 {
-  public class TimerExact
+  public sealed class TimerExact
   {
-    Control _parent;
+    readonly Control parent;
 
     #region # public static extern void timeBeginPeriod(int tick); // ermöglicht eine Veringerung der Wartephasen zwischen den Windows-Ticks (eine Erhöhung ist nicht möglich und wird ignoriert)
     /// <summary>
@@ -20,12 +19,12 @@ namespace WindowsFormsApplication1
     /// </summary>
     /// <param name="tick">Wartezeit in Millisekunden</param>
     [DllImport("winmm.dll", SetLastError = true)]
-    public static extern void timeBeginPeriod(int tick);
+    static extern void timeBeginPeriod(int tick);
     #endregion
 
     public TimerExact(Control parent)
     {
-      _parent = parent;
+      this.parent = parent;
       timeBeginPeriod(1);
     }
 
@@ -33,31 +32,31 @@ namespace WindowsFormsApplication1
     {
       get
       {
-        return (double)Stopwatch.GetTimestamp() / (double)Stopwatch.Frequency * 1000.0;
+        return Stopwatch.GetTimestamp() / (double)Stopwatch.Frequency * 1000.0;
       }
     }
 
-    bool aktiv = false;
+    bool aktiv;
 
-    Thread laufer = null;
+    Thread laufer;
 
     void Arbeite()
     {
-      if (_parent != null)
+      if (parent != null)
       {
         double soll = TickCount;
         while (aktiv)
         {
           try
           {
-            if (_parent.IsDisposed)
+            if (parent.IsDisposed)
             {
               aktiv = false;
               return;
             }
-            if (_parent.IsHandleCreated)
+            if (parent.IsHandleCreated)
             {
-              _parent.Invoke(new Action(() => Tick(null, EventArgs.Empty)));
+              parent.Invoke(new Action(() => Tick(null, EventArgs.Empty)));
               //Tick(null, EventArgs.Empty);
             }
           }
@@ -93,7 +92,7 @@ namespace WindowsFormsApplication1
         aktiv = value;
         if (value)
         {
-          laufer = new Thread(() => { Arbeite(); });
+          laufer = new Thread(Arbeite);
           laufer.Start();
         }
       }
@@ -109,22 +108,9 @@ namespace WindowsFormsApplication1
       aktiv = false;
     }
 
-    public void Start()
-    {
-      Enabled = true;
-    }
-
-    public void Stop()
-    {
-      Enabled = false;
-    }
-
     public override string ToString()
     {
       return "Timer.";
     }
-
-
   }
-
 }
