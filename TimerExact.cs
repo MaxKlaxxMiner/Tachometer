@@ -7,7 +7,7 @@ using System.Diagnostics;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace WindowsFormsApplication1
+namespace TachometerApplication
 {
   public sealed class TimerExact
   {

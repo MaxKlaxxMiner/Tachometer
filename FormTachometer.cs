@@ -4,17 +4,18 @@ using System.Windows.Forms;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 
-namespace WindowsFormsApplication1
+namespace TachometerApplication
 {
   public sealed partial class FormTachometer : Form
   {
-    readonly IGasgeber basis = null;
-    //readonly IGasgeber basis = new TestGas();
-    //readonly IGasgeber basis = new TestGas2();
-    //readonly IGasgeber basis = new PreGas();
-    //readonly IGasgeber basis = new TabGas();
-    //readonly IGasgeber basis = new PerfektGas();
-    //readonly IGasgeber basis = new PerfektGas2();
+    //readonly IThrottleSimulate throttle = null; // manuelle Steuerung zum ausprobieren
+    //readonly IThrottleSimulate throttle = new MinimalThrottle(); // einfachtes Gaspedal, welches nur vollgas oder gar kein gas gibt (große Sprünge)
+    //readonly IThrottleSimulate throttle = new MinimalThrottle2(); // wie MinimalThrottle, jedoch wird die Änderung der letzten Drehzahl mit berücksichtigt (kleinere Sprünge)
+    //readonly IThrottleSimulate throttle = new SimpleThrottle(); // einfache Gaspedalsteuerung, welches den Abstand der Soll/Ist Drehzahl berücksichtigt
+    //readonly IThrottleSimulate throttle = new SimpleThrottle2(); // wie SimpleThrottle, jedoch wird zusätzlich die Drehzahl mit einbezogen (niedrige Drehzahlen benötigen weniger Gas um gehalten zu werden)
+    //readonly IThrottleSimulate throttle = new PredictedThrottle(); // benutzt die Änderungsgeschwindigkeit des Drehzahlmessers um die passende Gaspedal-Stellung zu ermitteln
+    //readonly IThrottleSimulate throttle = new TabledThrottle(); // für die Ermittlung der passenden Gaspedalstellung, ein Tabelle mit bekannten Werten benutzt
+    readonly IThrottleSimulate throttle = new PerfectThrottle(); // simuliert einen eigenen Motor um das Verhalten exakt vorhersagen zu können
 
     /// <summary>
     /// Multiplikator, wie die Berechnung pro Tick durchgeführt wird
@@ -40,13 +41,13 @@ namespace WindowsFormsApplication1
       timer1.Enabled = true;
     }
 
-    readonly MotorSteuerung motor = new MotorSteuerung(8600.0);
+    readonly EngineSimulator motor = new EngineSimulator(8600.0);
 
     void Rechne()
     {
-      if (basis != null)
+      if (throttle != null)
       {
-        gasSoll = basis.GetGas(motor.upmIst, motor.upmSoll) * 0.01;
+        gasSoll = throttle.GetThrottle(motor.upmIst, motor.upmSoll) * 0.01;
       }
 
       motor.Rechne(gasSoll);

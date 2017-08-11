@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace TachometerApplication
 {
   sealed partial class FormTachometer
   {

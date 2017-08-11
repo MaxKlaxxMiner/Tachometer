@@ -1,7 +1,7 @@
 ﻿
-namespace WindowsFormsApplication1
+namespace TachometerApplication
 {
-  public sealed class MotorSteuerung
+  public sealed class EngineSimulator
   {
     #region # // --- Variablen und Properties ---
     readonly Latenz latenzMotor = new Latenz(20);
@@ -20,7 +20,7 @@ namespace WindowsFormsApplication1
     /// Konstruktor
     /// </summary>
     /// <param name="upmMax">Maximal erlaubte Drehzahl des Motors</param>
-    public MotorSteuerung(double upmMax)
+    public EngineSimulator(double upmMax)
     {
       this.upmMax = upmMax;
       upmIst = 1000.0;
@@ -31,7 +31,7 @@ namespace WindowsFormsApplication1
     /// erstellt eine Kopie einer vorhandenen Motor-Steuerung
     /// </summary>
     /// <param name="motor">ursprünglicher Motor</param>
-    public MotorSteuerung(MotorSteuerung motor)
+    public EngineSimulator(EngineSimulator motor)
     {
       gas = motor.gas;
       gasMuss = motor.gasMuss;

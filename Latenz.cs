@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace WindowsFormsApplication1
+namespace TachometerApplication
 {
   public sealed class Latenz
   {
