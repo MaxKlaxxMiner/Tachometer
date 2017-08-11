@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DrawingExtensions.cs" />
+    <Compile Include="IGasgeber\PerfectThrottle2.cs" />
     <Compile Include="IGasgeber\SimpleThrottle.cs" />
     <Compile Include="IGasgeber\MinimalThrottle2.cs" />
     <Compile Include="Latenz.cs" />

@@ -5,7 +5,7 @@ namespace TachometerApplication
   /// <summary>
   /// simuliert einen eigenen Motor um das Verhalten exakt vorhersagen zu können
   /// </summary>
-  public sealed class PerfectThrottle : IThrottleSimulate
+  public sealed class PerfectThrottle2 : IThrottleSimulate
   {
     /// <summary>
     /// Basis-Motor, welcher verwendet wird
