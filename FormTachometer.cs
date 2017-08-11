@@ -16,7 +16,7 @@ namespace TachometerApplication
     //readonly IThrottleSimulate throttle = new PredictedThrottle(); // benutzt die Änderungsgeschwindigkeit des Drehzahlmessers um die passende Gaspedal-Stellung zu ermitteln
     //readonly IThrottleSimulate throttle = new TabledThrottle(); // für die Ermittlung der passenden Gaspedalstellung, ein Tabelle mit bekannten Werten benutzt
     //readonly IThrottleSimulate throttle = new PerfectThrottle(); // simuliert einen eigenen Motor um das Verhalten exakt vorhersagen zu können
-    readonly IThrottleSimulate throttle = new PerfectThrottle2();
+    readonly IThrottleSimulate throttle = new PerfectThrottle2(); // wie PerfectThrottle, jedoch zusätzlich mit Feinjustierung
 
     /// <summary>
     /// Multiplikator, wie die Berechnung pro Tick durchgeführt wird

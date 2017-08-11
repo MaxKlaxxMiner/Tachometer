@@ -3,7 +3,7 @@
 namespace TachometerApplication
 {
   /// <summary>
-  /// simuliert einen eigenen Motor um das Verhalten exakt vorhersagen zu können
+  /// wie PerfectThrottle, jedoch zusätzlich mit Feinjustierung
   /// </summary>
   public sealed class PerfectThrottle2 : IThrottleSimulate
   {
@@ -12,18 +12,41 @@ namespace TachometerApplication
     /// </summary>
     readonly EngineSimulator engine = new EngineSimulator(8600.0);
 
+    static double RpmLast(double throttle, int count, EngineSimulator engine)
+    {
+      throttle *= 0.01;
+      var temp = new EngineSimulator(engine);
+      for (int i = 0; i < count; i++)
+      {
+        temp.Rechne(throttle);
+      }
+      return temp.upmIst;
+    }
+
     double NextCalc(double currentRpm, double targetRpm)
     {
-      var temp = new EngineSimulator(engine);
+      const int Depth = 150;
 
-      for (int i = 0; i < 120; i++)
+      double minThr = 0.0;
+      double maxThr = 100.0;
+
+      if (RpmLast(minThr, Depth, engine) > targetRpm) return minThr;
+      if (RpmLast(maxThr, Depth, engine) < targetRpm) return maxThr;
+
+      for (int r = 0; r < 32; r++)
       {
-        temp.Rechne(currentRpm < targetRpm ? 1.0 : 0.0);
+        double chkThr = (minThr + maxThr) * 0.5;
+        if (RpmLast(chkThr, Depth, engine) > targetRpm)
+        {
+          maxThr = chkThr;
+        }
+        else
+        {
+          minThr = chkThr;
+        }
       }
 
-      double nextIstDrehzahl = temp.upmIst;
-
-      return nextIstDrehzahl < targetRpm ? 100 : 0;
+      return (minThr + maxThr) * 0.5;
     }
 
     /// <summary>
