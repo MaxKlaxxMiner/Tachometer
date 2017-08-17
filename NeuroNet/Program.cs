@@ -13,8 +13,6 @@ namespace NeuroNet
   {
     static void Main(string[] args)
     {
-      var netz = new Netz(5, 5, 1);
-
     }
   }
 }
