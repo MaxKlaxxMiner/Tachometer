@@ -22,7 +22,15 @@ namespace NeuroNet
 
     public bool Fire(double[] input)
     {
-      return false;
+      double sum = 0;
+      double len = Math.Min(input.Length, gewicht.Length);
+
+      for (int i = 0; i < len; i++)
+      {
+        sum += gewicht[i] * input[i];
+      }
+
+      return sum >= schwellwert;
     }
   }
 }
