@@ -20,7 +20,7 @@ namespace NeuroNet
       this.sendTo = sendTo;
     }
 
-    public bool Fire(double[] input)
+    public double Fire(double[] input)
     {
       double sum = 0;
       double len = Math.Min(input.Length, gewicht.Length);
@@ -30,7 +30,7 @@ namespace NeuroNet
         sum += gewicht[i] * input[i];
       }
 
-      return sum >= schwellwert;
+      return sum >= schwellwert ? 1 : 0;
     }
   }
 }

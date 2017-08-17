@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace NeuroNet
 {
-  public class Netz
+  public sealed class Netz
   {
     readonly List<Neuron> input = new List<Neuron>();
     readonly List<Neuron> hidden = new List<Neuron>();
@@ -21,6 +21,15 @@ namespace NeuroNet
       input.AddRange(Enumerable.Range(0, inputSize).Select(x => new Neuron(hidden)));
       hidden.AddRange(Enumerable.Range(0, hiddenSize).Select(x => new Neuron(output)));
       output.AddRange(Enumerable.Range(0, outputSize).Select(x => new Neuron(null)));
+    }
+
+    public double[] Compute(double[] inputVektor)
+    {
+      var inputResult = input.Select(x => x.Fire(inputVektor)).ToArray();
+      var hiddenResult = hidden.Select(x => x.Fire(inputResult)).ToArray();
+      var outputResult = output.Select(x => x.Fire(hiddenResult)).ToArray();
+
+      return outputResult;
     }
   }
 }
