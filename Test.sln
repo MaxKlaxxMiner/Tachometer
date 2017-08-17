@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GasTest", "GasTest.csproj", "{D7E82D8C-9C8A-40D3-8288-453E9E5F9A0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuroNet", "NeuroNet\NeuroNet.csproj", "{93F32572-D595-49D9-B9BB-3686552844E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D7E82D8C-9C8A-40D3-8288-453E9E5F9A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7E82D8C-9C8A-40D3-8288-453E9E5F9A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7E82D8C-9C8A-40D3-8288-453E9E5F9A0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93F32572-D595-49D9-B9BB-3686552844E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93F32572-D595-49D9-B9BB-3686552844E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93F32572-D595-49D9-B9BB-3686552844E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93F32572-D595-49D9-B9BB-3686552844E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
